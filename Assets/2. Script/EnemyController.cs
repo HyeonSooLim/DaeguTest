@@ -43,4 +43,3 @@ public class EnemyController : MonoBehaviour
         enemy.Chase(target);
     }
 }
-
