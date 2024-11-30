@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour
     public bool Jump { get; private set; }
     public bool CameraRotate { get; private set; }
 
+    [Header("Key Mapping")]
     [SerializeField] private KeyCode horizontalPositiveKey = KeyCode.D;
     [SerializeField] private KeyCode horizontalNegativeKey = KeyCode.A;
     [SerializeField] private KeyCode verticalPositiveKey = KeyCode.W;
@@ -23,9 +24,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode cameraRotationKey = KeyCode.Mouse1;
 
+    [Header("Camera Rotation")]
+    [SerializeField] private float rotationSpeed = 5f;
+
+    private float currentYRotation = 0f;
+
     void Start()
     {
-        if (TryGetComponent<CameraController>(out CameraController controller) == false)
+        if (!TryGetComponent(out CameraController _))
         {
             gameObject.AddComponent<CameraController>();
         }
@@ -33,28 +39,37 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        Horizontal = 0;
-        Vertical = 0;
+        ProcessMovementInput();
+        ProcessJumpInput();
+        ProcessCameraRotationInput();
 
-        if (Input.GetKey(horizontalPositiveKey))
+        if (!CameraRotate)
         {
-            Horizontal += 1;
+            RotatePlayer();
         }
-        if (Input.GetKey(horizontalNegativeKey))
-        {
-            Horizontal -= 1;
-        }
-        if (Input.GetKey(verticalPositiveKey))
-        {
-            Vertical += 1;
-        }
-        if (Input.GetKey(verticalNegativeKey))
-        {
-            Vertical -= 1;
-        }
+    }
 
-        CameraRotate = Input.GetKey(cameraRotationKey);
+    private void ProcessMovementInput()
+    {
+        Horizontal = (Input.GetKey(horizontalPositiveKey) ? 1 : 0) - (Input.GetKey(horizontalNegativeKey) ? 1 : 0);
+        Vertical = (Input.GetKey(verticalPositiveKey) ? 1 : 0) - (Input.GetKey(verticalNegativeKey) ? 1 : 0);
+    }
+
+    private void ProcessJumpInput()
+    {
         Jump = Input.GetKeyDown(jumpKey);
+    }
+
+    private void ProcessCameraRotationInput()
+    {
+        CameraRotate = Input.GetKey(cameraRotationKey);
+    }
+
+    private void RotatePlayer()
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+        currentYRotation += mouseX * rotationSpeed;
+        transform.rotation = Quaternion.Euler(0, currentYRotation, 0);
     }
 
     public void SetKeyMapping(PlayerAction action, KeyCode newKey)
@@ -75,6 +90,9 @@ public class PlayerInput : MonoBehaviour
                 break;
             case PlayerAction.Jump:
                 jumpKey = newKey;
+                break;
+            default:
+                Debug.LogWarning("Invalid PlayerAction provided.");
                 break;
         }
     }
