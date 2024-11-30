@@ -16,9 +16,10 @@ GameObject:
   - component: {fileID: 8721636302607824052}
   - component: {fileID: 1824360383393875108}
   - component: {fileID: -8897883751484216649}
+  - component: {fileID: 876119024285121135}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 7052251659310204875}
   playerMovement: {fileID: 1824360383393875108}
+  cameraController: {fileID: 876119024285121135}
 --- !u!114 &7052251659310204875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d410433ca8bd1344f944064fbd8c245a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalPositiveKey: 100
+  horizontalNegativeKey: 97
+  verticalPositiveKey: 119
+  verticalNegativeKey: 115
+  jumpKey: 32
+  cameraRotationKey: 324
+  rotationSpeed: 5
+  minYRotation: -60
+  maxYRotation: 60
 --- !u!143 &8721636302607824052
 CharacterController:
   m_ObjectHideFlags: 0
@@ -179,3 +190,16 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &876119024285121135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057074171596093944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82706ad2d2d49ce41b9140da330fc355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineInputAxisController: {fileID: 0}
