@@ -10,4 +10,9 @@ public class Zombie : Enemy
             navMeshAgent.SetDestination(target.position);
         }
     }
+
+    public override void Return()
+    {
+        GameManager.Inst.ReturnPool(gameObject);
+    }
 }

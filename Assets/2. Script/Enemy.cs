@@ -13,4 +13,5 @@ public abstract class Enemy : MonoBehaviour
 
     // 추격 함수 (추상 함수)
     public abstract void Chase(Transform target);
+    public abstract void Return();
 }

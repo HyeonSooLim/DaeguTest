@@ -1,20 +1,12 @@
 using UnityEngine;
 
-public enum PlayerAction
-{
-    HorizontalPositive,
-    HorizontalNegative,
-    VerticalPositive,
-    VerticalNegative,
-    Jump
-}
-
 public class PlayerInput : MonoBehaviour
 {
     public float Horizontal { get; private set; }
     public float Vertical { get; private set; }
     public bool Jump { get; private set; }
     public bool CameraRotate { get; private set; }
+    public bool Search { get; private set; }
 
     [Header("Key Mapping")]
     [SerializeField] private KeyCode horizontalPositiveKey = KeyCode.D;
@@ -23,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private KeyCode verticalNegativeKey = KeyCode.S;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode cameraRotationKey = KeyCode.Mouse1;
+    [SerializeField] private KeyCode searchKey = KeyCode.F;
 
     [Header("Camera Rotation")]
     [SerializeField] private float rotationSpeed = 5f;
@@ -42,6 +35,7 @@ public class PlayerInput : MonoBehaviour
         ProcessMovementInput();
         ProcessJumpInput();
         ProcessCameraRotationInput();
+        ProcessSearchInput();
 
         if (!CameraRotate)
         {
@@ -63,6 +57,11 @@ public class PlayerInput : MonoBehaviour
     private void ProcessCameraRotationInput()
     {
         CameraRotate = Input.GetKey(cameraRotationKey);
+    }
+
+    private void ProcessSearchInput()
+    {
+        Search = Input.GetKeyDown(searchKey) ? true : false;
     }
 
     private void RotatePlayer()

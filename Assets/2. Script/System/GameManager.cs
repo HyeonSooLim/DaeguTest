@@ -36,4 +36,9 @@ public class GameManager : Singleton<GameManager>
         float y = 0.5f;
         return new Vector3(x, y, z);
     }
+
+    public void ReturnPool(GameObject gameObject)
+    {
+        enemyPool.ReturnObject(gameObject);
+    }
 }
