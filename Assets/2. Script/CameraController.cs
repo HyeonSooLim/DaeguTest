@@ -1,10 +1,14 @@
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private CinemachineInputAxisController cinemachineInputAxisController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
+
+    const float CAMERA_BACK_SPEED = 0.5f;
+
     void Start()
     {
         if(cinemachineInputAxisController == null)
@@ -22,9 +26,15 @@ public class CameraController : MonoBehaviour
 
     public void SetActiveCameraRotate(bool isPressed)
     {
+        if (!isPressed)
+        {
+            DOTween.To(() => orbitalFollow.HorizontalAxis.Value, x => orbitalFollow.HorizontalAxis.Value = x, 0, CAMERA_BACK_SPEED);
+        }
+
         for (int i = 0; i < cinemachineInputAxisController.Controllers.Count; i++)
         {
-            cinemachineInputAxisController.Controllers[i].Enabled = isPressed;
+            var controller = cinemachineInputAxisController.Controllers[i];
+            controller.Enabled = isPressed;
         }
     }
 }
