@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         {
             //EventManager.Inst.
             Debug.Log("Search");
+            EventManager.Inst.BroadCast(GameEvents.EnemySpawnEvent);
         }
     }
 }

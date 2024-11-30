@@ -1,7 +1,5 @@
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InputFieldController : MonoBehaviour
 {
@@ -12,11 +10,7 @@ public class InputFieldController : MonoBehaviour
         inputField.onEndEdit.AddListener((value) =>
         {
             GameEvents.InputFieldEvent.Text = value;
-            if (value == SceneName.MAIN.ToString())
-            {
-                Debug.Log(value);
-                MainManager.Inst.MoveToScene(SceneName.MAIN);
-            }
+            MainManager.Inst.MoveToScene(SceneName.MAIN);
         });
     }
 

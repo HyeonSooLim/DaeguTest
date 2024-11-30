@@ -7,11 +7,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Vector3 spawnAreaMin;
     [SerializeField] private Vector3 spawnAreaMax;
 
+    private int spawnCount = 0;
+
     void Awake()
     {
         Debug.Log("GameManager Awake");
         GameSetting();
-        SpawnEnemies();
+        EventManager.Inst.AddListener(GameEvents.EnemySpawnEvent, SpawnEnemies);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Inst.RemoveListener(GameEvents.EnemySpawnEvent);
     }
 
     void GameSetting()
@@ -21,12 +28,16 @@ public class GameManager : Singleton<GameManager>
 
     void SpawnEnemies()
     {
-        for (int i = 0; i < enemyCount; i++)
+        if(spawnCount >= enemyCount)
         {
-            Vector3 randomPosition = GetRandomPosition();
-            GameObject enemy = enemyPool.GetObject();
-            enemy.transform.position = randomPosition;
+            return;
         }
+
+        Vector3 randomPosition = GetRandomPosition();
+        GameObject enemy = enemyPool.GetObject();
+        enemy.transform.position = randomPosition;
+        spawnCount++;
+        GameEvents.EnemySpawnEvent.EnemyCount = spawnCount;
     }
 
     Vector3 GetRandomPosition()

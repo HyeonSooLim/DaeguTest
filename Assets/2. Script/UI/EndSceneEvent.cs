@@ -2,27 +2,15 @@ using UnityEngine;
 
 public class EndSceneEvent : MonoBehaviour
 {
+    [SerializeField] private TMPro.TextMeshProUGUI time;
+    [SerializeField] private TMPro.TextMeshProUGUI inputName;
+    [SerializeField] private TMPro.TextMeshProUGUI spawnCount;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
-        EventManager.Inst.AddListener(GameEvents.ShowPlayTimeAndSceneNameEvent, ShowSceneNameAndTime);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Inst.RemoveListener(GameEvents.ShowPlayTimeAndSceneNameEvent);
-    }
-
-    private void ShowSceneNameAndTime()
-    {
-        Debug.Log("SceneName: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        Debug.Log("InputFieldText: " + GameEvents.InputFieldEvent.Text);
-        Debug.Log("PlayTime: " + (GameEvents.GameCurrentTimeEvent.CurrentTime - GameEvents.GameStartTimeEvent.StartTime).ToString());
-        MainManager.Inst.MoveToScene(SceneName.LOBBY);
-    }
-
-    public void OnClickButton()
-    {
-        EventManager.Inst.BroadCast(GameEvents.ShowPlayTimeAndSceneNameEvent);
+        time.SetText($"PLAY TIME : {GameEvents.GameCurrentTimeEvent.PlayTime}");
+        inputName.SetText($"NAME : {GameEvents.InputFieldEvent.Text}");
+        spawnCount.SetText($"SPAWN COUNT : {GameEvents.EnemySpawnEvent.EnemyCount}");
     }
 }

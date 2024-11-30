@@ -19,7 +19,8 @@ public class TextController : MonoBehaviour
 
     private void ChangeText()
     {
-        this.time.text = GameEvents.GameCurrentTimeEvent.CurrentTime.ToString();
+        //this.time.text = GameEvents.GameCurrentTimeEvent.CurrentTime.ToString();
+        this.time.text = GameEvents.GameCurrentTimeEvent.PlayTime.ToString();
     }
 
     private void ChangeName()
