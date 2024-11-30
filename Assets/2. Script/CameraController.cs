@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
         if (!isPressed)
         {
             DOTween.To(() => orbitalFollow.HorizontalAxis.Value, x => orbitalFollow.HorizontalAxis.Value = x, 0, CAMERA_BACK_SPEED);
+            //DOTween.To(() => orbitalFollow.VerticalAxis.Value, x => orbitalFollow.VerticalAxis.Value = x, 0, CAMERA_BACK_SPEED);
         }
 
         for (int i = 0; i < cinemachineInputAxisController.Controllers.Count; i++)
